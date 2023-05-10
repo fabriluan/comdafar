@@ -18,8 +18,8 @@ const GlobalStyles = createGlobalStyle `
 
     body{
         height: 100vh;
-        background-color: #F5F1F5;
-        color: #252428;
+        background-color: #fff;
+        color: #000000;
         font-family: 'Montserrat', sans-serif;
     }
 `
