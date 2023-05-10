@@ -1,4 +1,5 @@
 import { styled } from "styled-components";
+// import times from "../../fonts/Times_New_Roman";
 
 export const HomeSt = styled.article `
     height: 100vh;
@@ -111,6 +112,7 @@ export const GroupRadio = styled.section `
 `
 
 export const GroupForm = styled.section `
+
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -123,3 +125,19 @@ export const GroupForm = styled.section `
         flex-direction: column;
     }
 `       
+
+export const InfosContent = styled.section `
+    margin-top: 20px;
+    width: 60%;
+
+    h1{
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
+
+    span{
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 12pt;
+    }
+    
+`
