@@ -19,23 +19,81 @@ function Home(){
     const [cep, setCep] = useState('');
     const [infos, setInfos] = useState([]);
 
+    function VerifInput(){
+
+        if(nome === ''){
+            alert('Nome está vazio');
+            return true;
+        }
+        if(nacionalidade === ''){
+            alert('Nacionalidade está vazio');
+            return true;
+        }
+        if(sexo === undefined){
+            alert('Sexo está vazio');
+            return true;
+        }
+        if(civil === ''){
+            alert('Estado civil precisa ser informado!!!')
+            return true;
+        }
+        if(data === ''){
+            alert('Data está vazio');
+            return true;
+        }
+        if(rg === ''){
+            alert('RG está vazio');
+            return true;
+        }
+        if(cpf === ''){
+            alert('Cpf está vazio');
+            return true;
+        }
+        if(localidade === ''){
+            alert('Localidade está vazio');
+            return true;
+        }
+        if(numero === ''){
+            alert('Numero está vazio');
+            return true;
+        }
+        if(cep === ''){
+            alert('CEP vazio!!!');
+            return true;
+        }
+
+
+    }
+
     const HandleInfo = async (e) => {
         e.preventDefault();
-
-        const response = await api.get(`${cep}/json`)
-
-        if(civil === ''){
-            alert('valor não selecionado')
+        
+        if(VerifInput()){
             return false;
         }
+
+        const response = await api.get(`${cep}/json`);
 
         let conteudo =  <span> <b> {nome.toUpperCase()} </b>, {nacionalidade}, {civil}, {sexo === 'true' ? 'agricultor' : 'agricultora'}, {sexo === 'true' ? 'nascido' : 'nascida'} em {data}, {sexo === 'true' ? 'portador' : 'portadora'} da Carteira de Identidade civil (RG) n° {rg}-SSP/PR, inscrito no cadastro de pessoas físicas do ministério da fazenda (CPF) sob n° {cpf}, residente e domiciliado, na localidade {localidade}, {numero}, {check ? 'Zona Rural' : 'Zona Urbana'}, Município de {response.data.localidade} CEP: {cep}; </span>;
 
         infos.push(conteudo);
 
         setInfos([...infos])    
+
+        setNome('') 
+        setNacionalidade('')
+        setSexo('')
+        setCivil('')
+        setData('') 
+        setRg('')
+        setCpf('')
+        setLocalidade('')
+        setNumero('')
+        setCep('')
         
     }
+
+
 
     return(
         <HomeSt>
@@ -51,7 +109,8 @@ function Home(){
                         type="text"
                         placeholder="Digite o nome" 
                         value={nome} 
-                        onChange={(e) => setNome(e.target.value)} />
+                        onChange={(e) => setNome(e.target.value)}
+                        required />
                     </div>
                     <div>
                         <label>Nacionalidade: </label>
@@ -59,7 +118,8 @@ function Home(){
                         type="text"
                         placeholder="Digite a nacionalidade" 
                         value={nacionalidade} 
-                        onChange={(e) => setNacionalidade(e.target.value)} />
+                        onChange={(e) => setNacionalidade(e.target.value)}
+                        required />
                     </div>
                 </GroupForm>
 
@@ -68,9 +128,9 @@ function Home(){
                         <label>Sexo</label>
 
                         <div>
-                            <input type="radio" name="teste" value={true} onChange={ e => setSexo(e.target.value)}/>
+                            <input type="radio" name="teste" value={true} onChange={ e => setSexo(e.target.value)} required/>
                             <span>Masculino</span>
-                            <input type="radio" name="teste" value={false} onChange={ e => setSexo(e.target.value)}/>
+                            <input type="radio" name="teste" value={false} onChange={ e => setSexo(e.target.value)} required/>
                             <span>Femenino</span>
                         </div>
                     </div>
@@ -80,6 +140,8 @@ function Home(){
                         <option value={'casado'}>Casado</option>
                         <option value={'solteiro'}>Solteiro</option>
                         <option value={'viúvo'}>Viúvo</option>
+                        <option value={'amasiado'}>Amasiado</option>
+                        <option value={'divorciado'}>Divorciado</option>
                     </select>
 
                     <div>
@@ -89,19 +151,20 @@ function Home(){
                         placeholder="Digite a data" 
                         type="type" 
                         value={data} 
-                        onChange={(e) => setData(e.target.value)} />
+                        onChange={(e) => setData(e.target.value)} 
+                        required/>
                     </div>
                 </GroupRadio>
 
                 <GroupForm>
                     <div>
                         <label>Rg</label>
-                        <IMaskInput 
-                        mask="00.000.000-00"
+                        <input
                         placeholder="Digite o rg" 
                         type="text" 
                         value={rg} 
-                        onChange={(e) => setRg(e.target.value)} />
+                        onChange={(e) => setRg(e.target.value)} 
+                        required/>
                     </div>
                     <div>
                         <label>Cpf</label>
@@ -110,7 +173,8 @@ function Home(){
                         placeholder="Digite o cpf" 
                         type="text" 
                         value={cpf} 
-                        onChange={(e) => setCpf(e.target.value)} />
+                        onChange={(e) => setCpf(e.target.value)} 
+                        required/>
                     </div>
                 </GroupForm>
 
@@ -121,12 +185,13 @@ function Home(){
                         type="text"
                         placeholder="Digite a localidade" 
                         value={localidade} 
-                        onChange={(e) => setLocalidade(e.target.value)} />
+                        onChange={(e) => setLocalidade(e.target.value)} 
+                        required/>
                     </div>
 
                     <div>
                         <label>Zona Rural</label>
-                        <input type="checkbox" checked  ={check} onChange={(e) => setCheck(e.target.checked)} />
+                        <input type="checkbox" checked  ={check} onChange={(e) => setCheck(e.target.checked)} required />
                     </div>
 
                     <div>
@@ -135,7 +200,8 @@ function Home(){
                         type="text"
                         placeholder="Digite o num" 
                         value={numero} 
-                        onChange={(e) => setNumero(e.target.value)} />
+                        onChange={(e) => setNumero(e.target.value)} 
+                        required />
                     </div>
 
                     <div>
@@ -145,7 +211,8 @@ function Home(){
                         placeholder="Digite o CEP"
                         mask='00000-000' 
                         value={cep} 
-                        onChange={(e) => setCep(e.target.value)} />
+                        onChange={(e) => setCep(e.target.value)}
+                        required />
                     </div>
                 </GroupForm>
                 <button onClick={ HandleInfo } >Enviar</button>
@@ -154,7 +221,9 @@ function Home(){
 
             <InfosContent>
 
-                <h1>Informações</h1>
+                {infos.length !== 0 && (
+                    <h1>Informações</h1>
+                )}
 
                 {infos.map((item, index) => (
                     <>
